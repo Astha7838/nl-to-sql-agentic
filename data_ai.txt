@@ -1,0 +1,152 @@
+table_name,column_name,column_description,column_data_type,key_type,related_table
+loan_journey,loan_id,Unique loan identifier,INT,Primary,
+loan_journey,customer_id,Unique customer identifier,INT,Foreign,customer_profile
+loan_journey,origination_id,Loan origination event,INT,Foreign,origination
+loan_journey,loan_status,Current status of the loan,VARCHAR,None,
+loan_journey,loan_amount,Original loan amount,DECIMAL,None,
+loan_journey,interest_rate,Interest rate applied to the loan,DECIMAL,None,
+loan_journey,term_months,Loan term in months,INT,None,
+loan_journey,product_type,Type of loan product,VARCHAR,None,
+loan_journey,branch_id,Branch where loan was originated,INT,Foreign,branch
+loan_journey,last_payment_date,Date of last payment,DATE,None,
+loan_journey,next_due_date,Next payment due date,DATE,None,
+loan_journey,payoff_amount,Amount required to pay off the loan,DECIMAL,None,
+spendings,spending_id,Unique spending record identifier,INT,Primary,
+spendings,customer_id,Unique customer identifier,INT,Foreign,customer_profile
+spendings,transaction_date,Date of spending transaction,DATE,None,
+spendings,amount,Amount spent,DECIMAL,None,
+spendings,category,Spending category,VARCHAR,None,
+spendings,merchant_id,Merchant identifier,INT,Foreign,merchant
+spendings,merchant_name,Merchant name,VARCHAR,None,
+spendings,location,Location of transaction,VARCHAR,None,
+spendings,payment_method,Payment method used,VARCHAR,None,
+spendings,loan_id,Associated loan if any,INT,Foreign,loan_journey
+spendings,description,Description of the transaction,VARCHAR,None,
+spendings,channel,Channel used (POS, online, etc.),VARCHAR
+origination,origination_id,Unique origination identifier,INT,Primary,
+origination,loan_id,Associated loan identifier,INT,Foreign,loan_journey
+origination,customer_id,Customer identifier,INT,Foreign,customer_profile
+origination,application_date,Date of loan application,DATE,None,
+origination,approval_date,Date of loan approval,DATE,None,
+origination,approved_amount,Approved loan amount,DECIMAL,None,
+origination,officer_id,Loan officer identifier,INT,Foreign,employee
+origination,branch_id,Branch identifier,INT,Foreign,branch
+origination,channel,Origination channel (online, branch, etc.),VARCHAR
+origination,application_status,Status of the application,VARCHAR,None,
+origination,credit_score,Credit score at origination,INT,None,
+origination,remarks,Additional remarks,VARCHAR,None,
+banking_transactions,transaction_id,Unique transaction identifier,INT,Primary,
+banking_transactions,customer_id,Customer identifier,INT,Foreign,customer_profile
+banking_transactions,account_id,Bank account identifier,INT,Foreign,account
+banking_transactions,transaction_date,Date of transaction,DATE,None,
+banking_transactions,amount,Transaction amount,DECIMAL,None,
+banking_transactions,transaction_type,Type of transaction (debit/credit),VARCHAR,None,
+banking_transactions,description,Transaction description,VARCHAR,None,
+banking_transactions,merchant_id,Merchant identifier,INT,Foreign,merchant
+banking_transactions,category,Transaction category,VARCHAR,None,
+banking_transactions,loan_id,Associated loan if any,INT,Foreign,loan_journey
+banking_transactions,channel,Transaction channel,VARCHAR,None,
+banking_transactions,status,Transaction status,VARCHAR,None,
+customer_profile,customer_id,Unique customer identifier,INT,Primary,
+customer_profile,first_name,Customer first name,VARCHAR,None,
+customer_profile,last_name,Customer last name,VARCHAR,None,
+customer_profile,date_of_birth,Customer date of birth,DATE,None,
+customer_profile,gender,Customer gender,VARCHAR,None,
+customer_profile,marital_status,Marital status,VARCHAR,None,
+customer_profile,employment_status,Employment status,VARCHAR,None,
+customer_profile,income,Annual income,DECIMAL,None,
+customer_profile,address,Customer address,VARCHAR,None,
+customer_profile,city,City of residence,VARCHAR,None,
+customer_profile,state,State of residence,VARCHAR,None,
+customer_profile,zip_code,ZIP code,VARCHAR,None,
+customer_profile,phone_number,Phone number,VARCHAR,None,
+customer_profile,email,Email address,VARCHAR,None,
+account,account_id,Unique account identifier,INT,Primary,
+account,customer_id,Customer identifier,INT,Foreign,customer_profile
+account,account_type,Type of account (savings, checking),VARCHAR,None
+account,open_date,Date account was opened,DATE,None,
+account,close_date,Date account was closed,DATE,None,
+account,balance,Current account balance,DECIMAL,None,
+account,status,Account status,VARCHAR,None,
+account,branch_id,Branch identifier,INT,Foreign,branch
+account,currency,Account currency,VARCHAR,None,
+account,overdraft_limit,Overdraft limit,DECIMAL,None,
+account,interest_rate,Interest rate,DECIMAL,None,
+account,linked_loan_id,Linked loan if any,INT,Foreign,loan_journey
+branch,branch_id,Unique branch identifier,INT,Primary,
+branch,branch_name,Branch name,VARCHAR,None,
+branch,address,Branch address,VARCHAR,None,
+branch,city,Branch city,VARCHAR,None,
+branch,state,Branch state,VARCHAR,None,
+branch,zip_code,Branch ZIP code,VARCHAR,None,
+branch,manager_id,Branch manager identifier,INT,Foreign,employee
+branch,phone_number,Branch phone number,VARCHAR,None,
+branch,email,Branch email address,VARCHAR,None,
+branch,open_date,Branch open date,DATE,None,
+branch,status,Branch status,VARCHAR,None,
+merchant,merchant_id,Unique merchant identifier,INT,Primary,
+merchant,merchant_name,Merchant name,VARCHAR,None,
+merchant,category,Merchant category,VARCHAR,None,
+merchant,address,Merchant address,VARCHAR,None,
+merchant,city,Merchant city,VARCHAR,None,
+merchant,state,Merchant state,VARCHAR,None,
+merchant,zip_code,Merchant ZIP code,VARCHAR,None,
+merchant,phone_number,Merchant phone number,VARCHAR,None,
+merchant,email,Merchant email address,VARCHAR,None,
+merchant,registration_date,Merchant registration date,DATE,None,
+merchant,status,Merchant status,VARCHAR,None,
+employee,employee_id,Unique employee identifier,INT,Primary,
+employee,first_name,Employee first name,VARCHAR,None,
+employee,last_name,Employee last name,VARCHAR,None,
+employee,position,Employee position,VARCHAR,None,
+employee,branch_id,Branch identifier,INT,Foreign,branch
+employee,hire_date,Date of hire,DATE,None,
+employee,termination_date,Date of termination,DATE,None,
+employee,email,Employee email address,VARCHAR,None,
+employee,phone_number,Employee phone number,VARCHAR,None,
+employee,status,Employee status,VARCHAR,None,
+employee,manager_id,Manager identifier,INT,Foreign,employee
+payment_schedule,schedule_id,Unique payment schedule identifier,INT,Primary,
+payment_schedule,loan_id,Associated loan identifier,INT,Foreign,loan_journey
+payment_schedule,payment_number,Payment number in schedule,INT,None,
+payment_schedule,due_date,Payment due date,DATE,None,
+payment_schedule,amount_due,Amount due for payment,DECIMAL,None,
+payment_schedule,principal_due,Principal due,DECIMAL,None,
+payment_schedule,interest_due,Interest due,DECIMAL,None,
+payment_schedule,fees_due,Fees due,DECIMAL,None,
+payment_schedule,penalties_due,Penalties due,DECIMAL,None,
+payment_schedule,status,Payment status,VARCHAR,None,
+payment_schedule,payment_date,Actual payment date,DATE,None,
+payment_history,payment_id,Unique payment identifier,INT,Primary,
+payment_history,loan_id,Associated loan identifier,INT,Foreign,loan_journey
+payment_history,customer_id,Customer identifier,INT,Foreign,customer_profile
+payment_history,payment_date,Date of payment,DATE,None,
+payment_history,amount_paid,Amount paid,DECIMAL,None,
+payment_history,principal_paid,Principal paid,DECIMAL,None,
+payment_history,interest_paid,Interest paid,DECIMAL,None,
+payment_history,fees_paid,Fees paid,DECIMAL,None,
+payment_history,penalties_paid,Penalties paid,DECIMAL,None,
+payment_history,payment_method,Payment method,VARCHAR,None,
+payment_history,status,Payment status,VARCHAR,None,
+loan_collateral,collateral_id,Unique collateral identifier,INT,Primary,
+loan_collateral,loan_id,Associated loan identifier,INT,Foreign,loan_journey
+loan_collateral,collateral_type,Type of collateral,VARCHAR,None,
+loan_collateral,description,Collateral description,VARCHAR,None,
+loan_collateral,value,Collateral value,DECIMAL,None,
+loan_collateral,owner_id,Owner identifier,INT,Foreign,customer_profile
+loan_collateral,registration_number,Collateral registration number,VARCHAR,None,
+loan_collateral,registration_date,Collateral registration date,DATE,None,
+loan_collateral,release_date,Collateral release date,DATE,None,
+loan_collateral,status,Collateral status,VARCHAR,None,
+loan_collateral,remarks,Additional remarks,VARCHAR,None,
+loan_guarantor,guarantor_id,Unique guarantor identifier,INT,Primary,
+loan_guarantor,loan_id,Associated loan identifier,INT,Foreign,loan_journey
+loan_guarantor,customer_id,Guarantor customer identifier,INT,Foreign,customer_profile
+loan_guarantor,guarantee_amount,Guarantee amount,DECIMAL,None,
+loan_guarantor,relationship,Relationship to borrower,VARCHAR,None,
+loan_guarantor,contact_number,Guarantor contact number,VARCHAR,None,
+loan_guarantor,email,Guarantor email address,VARCHAR,None,
+loan_guarantor,address,Guarantor address,VARCHAR,None,
+loan_guarantor,status,Guarantor status,VARCHAR,None,
+loan_guarantor,remarks,Additional remarks,VARCHAR,None,
+loan_guarantor,guarantee_date,Date guarantee provided,DATE,None,

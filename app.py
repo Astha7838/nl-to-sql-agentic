@@ -8,13 +8,13 @@ from langchain_groq import ChatGroq
 
 # --- Set page config ---
 st.set_page_config(page_title="Natural Language to SQL Generator", layout="wide")
-st.title("🧠 Natural Language to SQL Generator")
+st.title("Natural Language to SQL Generator")
 st.markdown("Upload your **CSV or TXT** schema file, then ask a question about your data.")
 
 # --- File upload ---
 uploaded_file = st.file_uploader("Upload a CSV or TXT schema file", type=["csv", "txt"])
 if not uploaded_file:
-    st.info("📎 Please upload a file to continue.")
+    st.info("Please upload a file to continue.")
     st.stop()
 
 # --- Load schema based on file type ---
@@ -62,7 +62,7 @@ def init_vectorstore_and_agent(schema_docs):
 
     groq_api_key ="<use groq api key>"
     if not groq_api_key:
-        st.error("🚨 GROQ_API_KEY environment variable not set!")
+        st.error("GROQ_API_KEY environment variable not set!")
         st.stop()
 
     llm = ChatGroq(temperature=0.9, model_name="llama3-8b-8192", groq_api_key=groq_api_key)
@@ -90,7 +90,7 @@ def init_vectorstore_and_agent(schema_docs):
 try:
     column_texts, schema_docs = load_schema(uploaded_file)
 except Exception as e:
-    st.error(f"❌ Failed to load schema: {e}")
+    st.error(f"Failed to load schema: {e}")
     st.stop()
 
 with st.expander("📋 Sample schema preview"):
@@ -103,7 +103,7 @@ with st.spinner("Initializing agent..."):
 # --- Input box for user query ---
 user_input = st.text_area("💬 Ask a question about your data:")
 
-if st.button("🔍 Generate SQL"):
+if st.button("Generate SQL"):
     if not user_input.strip():
         st.warning("Please enter a question.")
     else:
@@ -112,4 +112,4 @@ if st.button("🔍 Generate SQL"):
                 sql = agent.run(user_input)
                 st.code(sql, language="sql")
             except Exception as e:
-                st.error(f"❌ Error generating SQL: {e}")
+                st.error(f"Error generating SQL: {e}")
